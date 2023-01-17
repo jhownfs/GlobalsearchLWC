@@ -4,7 +4,7 @@
      <members>lookuptraining</members>
      <name>LightningComponentBundle</name>
    </types>
-    <types>
+    <types> 
      <members>LookupTrainingController</members>
      <name>ApexClass</name>
    </types>
