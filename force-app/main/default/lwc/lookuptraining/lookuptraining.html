@@ -1,0 +1,35 @@
+<template>
+    <div>
+       <lightning-card>
+        <h3 slot="title">
+            <lightning-icon icon-name="standard:search" size="small"></lightning-icon>
+            &nbsp; Buscar Registros
+        </h3>
+        <div class="">
+            <lightning-combobox name="Objeto" 
+                                labe="Objeto" 
+                                value={objeto}
+                                placeholder="selecione um objeto"
+                                options={listaObjetoSalesforce}
+                                onchange={handleChange}>
+            </lightning-combobox>
+
+                <lightning-input type="search" label="Entre com um texto" onchange={handleontype}></lightning-input>
+
+         <template if:true={listaRegistros.data}>
+            <template for:each={listaRegistros.data} for:item="conta">
+                <lightning-formatted-url value="/my/path{conta.Id}" key={conta.Id} target="_blank" label={conta.Name}> </lightning-formatted-url>
+            </template>
+        </template>
+        <template if:true={listaRegistros.error}>
+            <p>Erro: {listaRegistros.error}</p>
+        </template>
+    </div> 
+    <p slot="footer">
+        Powered by Jhownfs &nbsp;
+        <lightning-icon icon-name="utility:smiley_and_people" title="smile face" size="small" variant="success"></lightning-icon>
+    </p>
+
+      </lightning-card>
+    </div>
+</template>
