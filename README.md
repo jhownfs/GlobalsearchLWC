@@ -1,4 +1,4 @@
-# Salesforce Global Search Component
+>> # Salesforce Global Search Component
 
 This component is to using like Salesforce global search, but some differences.
 
