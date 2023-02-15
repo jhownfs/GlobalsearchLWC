@@ -6,10 +6,12 @@ export default class lookuptraining extends LightningElement {
 
   termoBusca;
   objeto;
+  @track loaded = false;
   @track listaObjetoSalesforce;
   @track valorObjetoSelecionado;
 
   connectedCallback() {
+    this.loaded = true;
     this.getObjetos();
   }
 
@@ -27,12 +29,13 @@ export default class lookuptraining extends LightningElement {
         });
       }
       this.listaObjetoSalesforce = objetos;
+      this.loaded = false;
   }).catch(( error ) => {
     console.log('error', error);
   })
 }
 
-  handleChange(event) {
+ changeobject(event) {
     this.valorObjetoSelecionado = event.detail.value;
   }
 
@@ -40,7 +43,6 @@ export default class lookuptraining extends LightningElement {
   listaRegistros;
 
   handleontype(event){
-     
     this.termoBusca = event.target.value;
   }
   
