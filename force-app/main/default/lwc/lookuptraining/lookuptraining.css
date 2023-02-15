@@ -6,7 +6,7 @@
 }
 
 .spinner-container{
-
+  font-family: 'Courier New', Courier, monospace;
 }
 
 .container-search {
@@ -15,10 +15,10 @@
 }
 
 .container-results {
-
+    font-family: 'Courier New', Courier, monospace;
     
 }
 
 .each-records{
-
+    font-family: 'Courier New', Courier, monospace;
 }

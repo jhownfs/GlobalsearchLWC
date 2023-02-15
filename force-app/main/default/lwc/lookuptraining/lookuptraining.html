@@ -19,14 +19,15 @@
             <template for:each={listaRegistros.data} for:item="conta">
             <div class="each-records" key={conta.Id}>
                 <lightning-icon icon-name="standard:account" alternative-text="Account" title="Account"  size="small"></lightning-icon>
+                <!-- change to navigator in a child component -->
                 <lightning-formatted-url value="/my/path{conta.Id}" target="_blank" label={conta.Name}> </lightning-formatted-url>
             </div>
             </template>
         </template>
         <template if:true={listaRegistros.error}>
-            <p>
-              Erro: {listaRegistros.error}
-            </p>
+            <div class="result-error">
+                <!-- put break image with refresh tips, also add msg alert -->
+            </div>
         </template>
       </div>
     </div> 
