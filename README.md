@@ -10,7 +10,12 @@ If you have suggestion, please make a pull request.
 
 ### 🚀 Next steps
 
-[] Improve Front End UX/UI
-[] Improve Back End Sync/Async
-[] Break in small component
-[] Improve README
+- [] Improve Front End UX/UI
+- [] Improve Back End Sync/Async
+- [] Break in small component
+- [] Improve README
+
+## 📝 Licença
+Esse projeto está sob licença. Veja o arquivo [LICENÇA](LICENSE.md) para mais detalhes.
+
+[⬆ Voltar ao topo](#GlobalsearchLWC)<br>
