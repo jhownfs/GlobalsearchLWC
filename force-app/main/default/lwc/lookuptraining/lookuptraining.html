@@ -1,47 +1,73 @@
 <template lwc:preserve-comments>
-    <div class="container">
-       <lightning-card>
-        <h3 slot="title">
-            <lightning-icon icon-name="standard:search" size="small"></lightning-icon>
-            &nbsp; Buscar Registros
-        </h3>
-        <div class="container-search">
-            <lightning-combobox name="Objeto" 
-                                labe="Objeto" 
-                                value={objeto}
-                                placeholder="selecione um objeto"
-                                options={listaObjetoSalesforce}
-                                onchange={changeobject}>
-            </lightning-combobox>
-                <lightning-input type="search" label="Entre com um texto" onchange={handleontype}></lightning-input>
-         <div class="container-results">       
-         <template if:true={listaRegistros.data}>
-            <template for:each={listaRegistros.data} for:item="conta">
-            <div class="each-records" key={conta.Id}>
-                <lightning-icon icon-name="standard:account" alternative-text="Account" title="Account"  size="small"></lightning-icon>
+  <div class="container">
+    <lightning-card>
+      <h3 slot="title">
+        <lightning-icon
+          icon-name="standard:search"
+          size="small"
+        ></lightning-icon>
+        &nbsp; Buscar Registros
+      </h3>
+      <div class="container-search">
+        <lightning-combobox
+          name="Objeto"
+          labe="Objeto"
+          value={objeto}
+          placeholder="selecione um objeto"
+          options={listObjectSalesforce}
+          onchange={changeobject}
+        >
+        </lightning-combobox>
+        <lightning-input
+          type="search"
+          label="Entre com um texto"
+          onchange={handleontype}
+        ></lightning-input>
+        <div class="container-results">
+          <template if:true={listRecordsFound.data}>
+            <template for:each={listRecordsFound.data} for:item="record">
+              <div class="each-records" key={record.Id}>
+                <lightning-icon
+                  icon-name="standard:account"
+                  alternative-text="Account"
+                  title="Account"
+                  size="small"
+                ></lightning-icon>
                 <!-- change to navigator in a child component -->
-                <lightning-formatted-url value="/my/path{conta.Id}" target="_blank" label={conta.Name}> </lightning-formatted-url>
-            </div>
+                <lightning-formatted-url
+                  value="/my/path{record.Id}"
+                  target="_blank"
+                  label={record.Name}
+                >
+                </lightning-formatted-url>
+              </div>
             </template>
-        </template>
-        <template if:true={listaRegistros.error}>
+          </template>
+          <template if:true={listRecordsFound.error}>
             <div class="result-error">
-                <!-- put break image with refresh tips, also add msg alert -->
+              <!-- put break image with refresh tips, also add msg alert -->
             </div>
-        </template>
+          </template>
+        </div>
       </div>
-    </div> 
-    <p slot="footer">
+      <p slot="footer">
         Powered by 2Dotcom &nbsp;
-        <lightning-icon icon-name="utility:smiley_and_people" title="smile face" size="small" variant="success"></lightning-icon>
-    </p>
-    <div class="spinner-container">
+        <lightning-icon
+          icon-name="utility:smiley_and_people"
+          title="smile face"
+          size="small"
+          variant="success"
+        ></lightning-icon>
+      </p>
+      <div class="spinner-container">
         <template if:true={loaded}>
-           <lightning-spinner alternative-text="Loading" variant="brand"></lightning-spinner>
-         </template>
-         <template if:false={loaded}>
-         </template>
-     </div>
+          <lightning-spinner
+            alternative-text="Loading"
+            variant="brand"
+          ></lightning-spinner>
+        </template>
+        <template if:false={loaded}> </template>
+      </div>
     </lightning-card>
-    </div>
+  </div>
 </template>

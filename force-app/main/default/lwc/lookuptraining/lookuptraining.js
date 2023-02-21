@@ -1,49 +1,48 @@
-import { LightningElement, wire, track } from 'lwc';
-import buscaRegistros from '@salesforce/apex/LookupTrainingController.buscaRegistros';
-import comboBoxobjetos from '@salesforce/apex/LookupTrainingController.listaObjetos';
+import { LightningElement, wire, track } from "lwc";
+import buscaRegistros from "@salesforce/apex/LookupTrainingController.buscaRegistros";
+import comboBoxObjects from "@salesforce/apex/LookupTrainingController.listaObjetos";
 
 export default class lookuptraining extends LightningElement {
-
-  termoBusca;
-  objeto;
+  searchTerm;
+  object;
   @track loaded = false;
-  @track listaObjetoSalesforce;
-  @track valorObjetoSelecionado;
+  @track listObjectSalesforce;
+  @track valueTypedToSearch;
 
   connectedCallback() {
     this.loaded = true;
     this.getObjetos();
   }
 
-  getObjetos(){
-    comboBoxobjetos({})
-    .then((result) => {
-     
-      let objetos = [];
-      if(result){
-        result.forEach( obj => {
-          objetos.push({
-            label: obj,
-            value: obj,
+  getObjetos() {
+    comboBoxObjects({})
+      .then((result) => {
+        let objectsArray = [];
+        if (result) {
+          result.forEach((obj) => {
+            objectsArray.push({
+              label: obj,
+              value: obj
+            });
           });
-        });
-      }
-      this.listaObjetoSalesforce = objetos;
-      this.loaded = false;
-  }).catch(( error ) => {
-    console.log('error', error);
-  })
-}
-
- changeobject(event) {
-    this.valorObjetoSelecionado = event.detail.value;
+        }
+        this.listObjectSalesforce = objectsArray;
+        this.loaded = false;
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
   }
 
-  @wire(buscaRegistros, { termo: '$termoBusca' , objeto: '$valorObjetoSelecionado'})
-  listaRegistros;
-
-  handleontype(event){
-    this.termoBusca = event.target.value;
+  changeobject(event) {
+    this.valueTypedToSearch = event.detail.value;
+    this.listRecordsFound = [];
   }
-  
+
+  @wire(buscaRegistros, { termo: "$searchTerm", objeto: "$valueTypedToSearch" })
+  listRecordsFound;
+
+  handleontype(event) {
+    this.searchTerm = event.target.value;
+  }
 }
