@@ -10,17 +10,17 @@
       </h3>
       <div class="container-search">
         <lightning-combobox
-          name="Objeto"
-          labe="Objeto"
-          value={objeto}
-          placeholder="selecione um objeto"
+          name="Object"
+          labe="Object"
+          value={object}
+          placeholder="Select Salesforce Object"
           options={listObjectSalesforce}
           onchange={changeobject}
         >
         </lightning-combobox>
         <lightning-input
           type="search"
-          label="Entre com um texto"
+          label="Type text to search"
           onchange={handleontype}
         ></lightning-input>
         <div class="container-results">

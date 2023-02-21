@@ -1,6 +1,6 @@
 import { LightningElement, wire, track } from "lwc";
-import buscaRegistros from "@salesforce/apex/LookupTrainingController.buscaRegistros";
-import comboBoxObjects from "@salesforce/apex/LookupTrainingController.listaObjetos";
+import searchRecords from "@salesforce/apex/LookupTrainingController.searchRecords";
+import comboBoxObjects from "@salesforce/apex/LookupTrainingController.listObjectsSalesforce";
 
 export default class lookuptraining extends LightningElement {
   searchTerm;
@@ -39,7 +39,10 @@ export default class lookuptraining extends LightningElement {
     this.listRecordsFound = [];
   }
 
-  @wire(buscaRegistros, { termo: "$searchTerm", objeto: "$valueTypedToSearch" })
+  @wire(searchRecords, {
+    keyTerm: "$searchTerm",
+    objectSearch: "$valueTypedToSearch"
+  })
   listRecordsFound;
 
   handleontype(event) {

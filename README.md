@@ -30,7 +30,7 @@ You can also commit your files with the help of the CLI. To do so, just run npm 
 
 As a best practice, it is strongly recommended that you do not skip the validations. If you need to change the way your commit messages are written, just go to file commitlint.config.ts and you will find there the config needed.
 
-Check out commitlint(https://commitlint.js.org/#/) docs to see further configurations that you can do.
+Check out [commitlint](https://commitlint.js.org/#/) docs to see further configurations that you can do.
 
 ### Motivation
 

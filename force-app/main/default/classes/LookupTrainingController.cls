@@ -1,29 +1,29 @@
 public with sharing class LookupTrainingController {
 
     @AuraEnabled(cacheable=true)
-    public static list<SObject> buscaRegistros(String termo, String objeto){
-        list<SObject> listaResultadoPesquisa = new list<SObject>();
+    public static list<SObject> searchRecords(String keyTerm, String objectSearch){
+        list<SObject> listSearchResultRecords = new list<SObject>();
         
-        String termoPesquisa = '%' + String.escapeSingleQuotes(termo) + '%';
+        String searchKey = '%' + String.escapeSingleQuotes(keyTerm) + '%';
 
-        String queryDinamica = 'SELECT Id, Name';
-        queryDinamica += ' FROM ' +  objeto;
-        queryDinamica += ' WHERE Name LIKE: termoPesquisa';
+        String dynamicQuery = 'SELECT Id, Name';
+        dynamicQuery += ' FROM ' +  objectSearch;
+        dynamicQuery += ' WHERE Name LIKE: searchKey';
        
         try {
            
-            listaResultadoPesquisa = database.query(queryDinamica); 
+            listSearchResultRecords = database.query(dynamicQuery); 
 
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
         }
-        return listaResultadoPesquisa;
+        return listSearchResultRecords;
     }
 
     @AuraEnabled(cacheable=true)
-    public static list<String> listaObjetos(){
+    public static list<String> listObjectsSalesforce(){
         
-        List<String> listaObjetos = new List<String>();
+        List<String> listObjects = new List<String>();
 
         try {
            
@@ -34,15 +34,15 @@ public with sharing class LookupTrainingController {
               String[] arrayObjeto = new String[]{objeto.getDescribe().getName()};
 
               if(Schema.describeSObjects(arrayObjeto)[0].isSearchable() && Schema.describeSObjects(arrayObjeto)[0].isQueryable()){
-                ListaObjetos.add(objeto.getDescribe().getName());
+                listObjects.add(objeto.getDescribe().getName());
               }       
             }
             
-            ListaObjetos.sort();
+            listObjects.sort();
         
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
         }
-        return ListaObjetos;
+        return listObjects;
     }
 }
