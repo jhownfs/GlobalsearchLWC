@@ -16,6 +16,7 @@ If you have suggestion, please make a pull request.
 - [] Improve README
 
 ## 📝 Licença
-This project is under license. Se the file [License](LICENSE) para mais detalhes.
+
+This project is under license. Se the file [License](LICENSE) for more details.
 
 [⬆ Voltar ao topo](GlobalsearchLWC)<br>
