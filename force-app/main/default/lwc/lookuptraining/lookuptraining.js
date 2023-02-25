@@ -1,8 +1,9 @@
 import { LightningElement, wire, track } from "lwc";
 import searchRecords from "@salesforce/apex/LookupTrainingController.searchRecords";
 import comboBoxObjects from "@salesforce/apex/LookupTrainingController.listObjectsSalesforce";
+import { NavigationMixin } from "lightning/navigation";
 
-export default class lookuptraining extends LightningElement {
+export default class lookuptraining extends NavigationMixin(LightningElement) {
   searchTerm;
   object;
   @track loaded = false;
@@ -47,5 +48,16 @@ export default class lookuptraining extends LightningElement {
 
   handleontype(event) {
     this.searchTerm = event.target.value;
+  }
+
+  navigatetorecord(event) {
+    this[NavigationMixin.Navigate]({
+      type: "standard__recordPage",
+      attributes: {
+        recordId: event.target.dataset.id,
+        objectApiName: this.valueTypedToSearch,
+        actionName: "view"
+      }
+    });
   }
 }

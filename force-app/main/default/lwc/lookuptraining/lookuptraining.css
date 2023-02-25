@@ -1,24 +1,31 @@
 .container {
-
-
- margin: 1px 1px 1px 1px;
- text-align: -webkit-center;
+  margin: 1px 1px 1px 1px;
+  text-align: -webkit-center;
 }
 
-.spinner-container{
-  font-family: 'Courier New', Courier, monospace;
+.spinner-container {
+  font-family: "Courier New", Courier, monospace;
 }
 
 .container-search {
-    width: 80%;
-    margin: 0.5px 0.5px 0.5px 0.5px;
+  width: 80%;
+  margin: 0.5px 0.5px 0.5px 0.5px;
 }
 
 .container-results {
-    font-family: 'Courier New', Courier, monospace;
-    
+  font-family: "Courier New", Courier, monospace;
+  border: 1px solid silver;
+  z-index: -999;
+  text-align: left;
 }
 
-.each-records{
-    font-family: 'Courier New', Courier, monospace;
+.each-records {
+  font-family: "Courier New", Courier, monospace;
+  cursor: pointer;
+}
+
+.each-records:hover {
+  background-color: #f5f5ab;
+  color: blue;
+  text-decoration: underline;
 }

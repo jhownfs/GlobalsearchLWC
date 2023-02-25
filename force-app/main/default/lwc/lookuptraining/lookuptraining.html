@@ -23,8 +23,8 @@
           label="Type text to search"
           onchange={handleontype}
         ></lightning-input>
-        <div class="container-results">
-          <template if:true={listRecordsFound.data}>
+        <template if:true={listRecordsFound.data}>
+          <div class="container-results">
             <template for:each={listRecordsFound.data} for:item="record">
               <div class="each-records" key={record.Id}>
                 <lightning-icon
@@ -34,21 +34,20 @@
                   size="small"
                 ></lightning-icon>
                 <!-- change to navigator in a child component -->
-                <lightning-formatted-url
-                  value="/my/path{record.Id}"
-                  target="_blank"
-                  label={record.Name}
-                >
-                </lightning-formatted-url>
+                <lightning-formatted-text
+                  value={record.Name}
+                  onclick={navigatetorecord}
+                  data-id={record.Id}
+                ></lightning-formatted-text>
               </div>
             </template>
-          </template>
-          <template if:true={listRecordsFound.error}>
-            <div class="result-error">
-              <!-- put break image with refresh tips, also add msg alert -->
-            </div>
-          </template>
-        </div>
+          </div>
+        </template>
+        <template if:true={listRecordsFound.error}>
+          <div class="result-error">
+            <!-- put break image with refresh tips, also add msg alert -->
+          </div>
+        </template>
       </div>
       <p slot="footer">
         Powered by 2Dotcom &nbsp;
