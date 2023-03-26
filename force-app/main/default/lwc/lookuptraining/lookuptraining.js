@@ -4,11 +4,12 @@ import comboBoxObjects from "@salesforce/apex/LookupTrainingController.listObjec
 import { NavigationMixin } from "lightning/navigation";
 
 export default class lookuptraining extends NavigationMixin(LightningElement) {
-  searchTerm;
-  object;
+  searchTerm = null;
+  object = null;
   @track loaded = false;
   @track listObjectSalesforce;
   @track valueTypedToSearch;
+  @track msgError;
 
   connectedCallback() {
     this.loaded = true;
