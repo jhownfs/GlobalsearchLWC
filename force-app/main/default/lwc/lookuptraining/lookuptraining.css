@@ -15,8 +15,14 @@
 .container-results {
   font-family: "Courier New", Courier, monospace;
   border: 1px solid silver;
-  z-index: -999;
+  z-index: 100;
   text-align: left;
+  position: absolute;
+  width: inherit;
+  background-color: white;
+  height: 100px;
+  overflow-y: scroll;
+  padding: 5px;
 }
 
 .each-records {
@@ -28,4 +34,8 @@
   background-color: #f5f5ab;
   color: blue;
   text-decoration: underline;
+}
+
+.inner-element-icon {
+  margin-right: 5px;
 }
