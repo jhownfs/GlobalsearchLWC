@@ -15,8 +15,7 @@
           value={object}
           placeholder="Select Salesforce Object"
           options={listObjectSalesforce}
-          onchange={changeobject}
-        >
+          onchange={changeobject}>
         </lightning-combobox>
         <lightning-input
           type="search"
@@ -26,20 +25,20 @@
         <template if:true={listRecordsFound.data}>
           <div class="container-results">
             <template for:each={listRecordsFound.data} for:item="record">
-              <div class="each-records" key={record.Id}>
-                <lightning-icon
-                  icon-name="standard:account"
-                  alternative-text="Account"
-                  title="Account"
-                  size="small"
-                ></lightning-icon>
-                <!-- change to navigator in a child component -->
-                <lightning-formatted-text
-                  value={record.Name}
-                  onclick={navigatetorecord}
-                  data-id={record.Id}
-                ></lightning-formatted-text>
-              </div>
+                <div class="each-records" key={record.Id}>
+                  <lightning-icon
+                    icon-name="standard:account"
+                    alternative-text="Account"
+                    title="Account"
+                    size="small"
+                  clas="inner-element-icon"></lightning-icon>
+                  <!-- change to navigator in a child component -->
+                  <lightning-formatted-text
+                    value={record.Name}
+                    onclick={navigatetorecord}
+                    data-id={record.Id}
+                  ></lightning-formatted-text>
+                </div>
             </template>
           </div>
         </template>

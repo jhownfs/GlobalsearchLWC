@@ -21,28 +21,43 @@ public with sharing class LookupTrainingController {
     }
 
     @AuraEnabled(cacheable=true)
-    public static list<String> listObjectsSalesforce(){
+    public static map<String, String> listObjectsSalesforce(){
         
-        List<String> listObjects = new List<String>();
+        map<String, String> mapObjects = new map<String, String>();
+        List<Schema.DescribeTabSetResult> tabSetDesc = Schema.describeTabs();
+        List<Schema.DescribeTabResult> tabDesc = new List<Schema.DescribeTabResult>();
+        List<Schema.DescribeIconResult> iconDesc = new List<Schema.DescribeIconResult>();
 
         try {
            
             List< Schema.SObjectType > listaObjType = Schema.getGlobalDescribe().Values();
 
-            for ( Schema.SObjectType objeto : listaObjType ) {  
+            for ( Schema.SObjectType obj : listaObjType ) {  
   
-              String[] arrayObjeto = new String[]{objeto.getDescribe().getName()};
+              String[] arrayObjects = new String[]{obj.getDescribe().getName()};
 
-              if(Schema.describeSObjects(arrayObjeto)[0].isSearchable() && Schema.describeSObjects(arrayObjeto)[0].isQueryable()){
-                listObjects.add(objeto.getDescribe().getName());
+              if(Schema.describeSObjects(arrayObjects)[0].isSearchable() && Schema.describeSObjects(arrayObjects)[0].isQueryable()){
+               
+                String icon;
+                for(Schema.DescribeTabResult tab : tabDesc) {
+                    if( obj.getDescribe().getName() == tab.getSobjectName() ) {
+                        if( tab.isCustom() ) {
+                            //icon = tab.getIcons();
+                        } else {
+                            icon = 'standard:' + obj.getDescribe().getName().toLowerCase();
+                        }
+                    }
+                mapObjects.put(obj.getDescribe().getName(), icon);
+               // listObjects.add(objeto.getDescribe().getName());
               }       
             }
-            
-            listObjects.sort();
-        
-        } catch (Exception e) {
-            throw new AuraHandledException(e.getMessage());
         }
-        return listObjects;
+            
+           //listObjects.sort();
+        
+            } catch (Exception e) {
+                throw new AuraHandledException(e.getMessage());
+            }
+        return mapObjects;
     }
 }
