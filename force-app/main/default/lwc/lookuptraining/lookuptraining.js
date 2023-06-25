@@ -2,11 +2,11 @@ import { LightningElement, wire, track } from "lwc";
 import searchRecords from "@salesforce/apex/LookupTrainingController.searchRecords";
 import comboBoxObjects from "@salesforce/apex/LookupTrainingController.listObjectsSalesforce";
 import { NavigationMixin } from "lightning/navigation";
-import { getObjectInfo } from 'lightning/uiObjectInfoApi';
+import { getObjectInfo } from "lightning/uiObjectInfoApi";
 
 export default class lookuptraining extends NavigationMixin(LightningElement) {
-  searchTerm;
-  object;
+  searchTerm = null;
+  object = null;
   @track loaded = false;
   @track listObjectSalesforce;
   @track valueTypedToSearch;
@@ -22,6 +22,8 @@ export default class lookuptraining extends NavigationMixin(LightningElement) {
     comboBoxObjects({})
       .then((result) => {
         let objectsArray = [];
+
+        console.log("novo resultado = ", result);
         if (result) {
           result.forEach((obj) => {
             objectsArray.push({
@@ -41,12 +43,8 @@ export default class lookuptraining extends NavigationMixin(LightningElement) {
   changeobject(event) {
     this.valueTypedToSearch = event.detail.value;
     this.listRecordsFound = [];
-    this.objectApiName = event.detail.value
+    this.objectApiName = event.detail.value;
   }
-
-  @wire(getObjectInfo, { objectApiName: '$objectApiName' })
-  objectInfo;
-
 
   @wire(searchRecords, {
     keyTerm: "$searchTerm",

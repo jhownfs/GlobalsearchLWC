@@ -1,11 +1,8 @@
-<?xml version="1.0" enconding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
-   <types>
-     <members>lookuptraining</members>
-     <name>LightningComponentBundle</name>
-   </types>
-    <types> 
-     <members>LookupTrainingController</members>
-     <name>ApexClass</name>
-   </types>
-   </Package>
+    <types>
+        <members>*</members>
+        <name>Translations</name>
+    </types>
+    <version>57.0</version>
+</Package>

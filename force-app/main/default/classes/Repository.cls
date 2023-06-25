@@ -30,23 +30,19 @@ global virtual class Repository implements IRepository {
 	}
 
     global virtual void deleteObject(List<SObject> entities, List<String> fields) {
-        //PermissionHelper.checkPermission(fields,PermissionHelper.DELETEE, entities.getsObjectType());
 		delete entities;
 	}
 
 	global virtual void insertObject(List<SObject> entities, List<String> fields) {
-        //PermissionHelper.checkPermission(fields,PermissionHelper.CREATEE, entities.getsObjectType());
 		insert entities;
 	}
 
 	global virtual void updateObject(List<SObject> entities, List<String> fields) {
-        //PermissionHelper.checkPermission(fields,PermissionHelper.UPDATEE, entities.getsObjectType());
 		update entities;
 	}
 
 	global virtual void saveObject(List<SObject> entities, List<String> fields) {
         //PermissionHelper.checkPermission(fields,PermissionHelper.CREATEE, entities.getsObjectType());
-        //PermissionHelper.checkPermission(fields,PermissionHelper.UPDATEE, entities.getsObjectType());
 		upsert entities;
 	}
 
