@@ -46,9 +46,6 @@ export default class lookuptraining extends NavigationMixin(LightningElement) {
     this.objectApiName = event.detail.value;
   }
 
-  @wire(getObjectInfo, { objectApiName: "$objectApiName" })
-  objectInfo;
-
   @wire(searchRecords, {
     keyTerm: "$searchTerm",
     objectSearch: "$valueTypedToSearch"
