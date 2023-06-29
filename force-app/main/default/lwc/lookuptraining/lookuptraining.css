@@ -22,7 +22,6 @@
   background-color: white;
   height: 100px;
   overflow-y: scroll;
-  padding: 5px;
 }
 
 .each-records {
@@ -38,4 +37,11 @@
 
 .inner-element-icon {
   margin-right: 5px;
+}
+
+.img-icon {
+  background-color: var(--iconColor);
+  width: 25px;
+  height: 25px;
+  margin: 5px;
 }

@@ -11,6 +11,8 @@ export default class lookuptraining extends NavigationMixin(LightningElement) {
   @track listObjectSalesforce;
   @track valueTypedToSearch;
   @track objectInfo;
+  @track iconURL =
+    "https://coisadavidacast-dev-ed.my.salesforce.com/img/icon/t4v35/standard/address_120.png";
   objectApiName;
 
   connectedCallback() {
@@ -23,7 +25,6 @@ export default class lookuptraining extends NavigationMixin(LightningElement) {
       .then((result) => {
         let objectsArray = [];
 
-        console.log("novo resultado = ", result);
         if (result) {
           result.forEach((obj) => {
             objectsArray.push({
@@ -65,5 +66,18 @@ export default class lookuptraining extends NavigationMixin(LightningElement) {
         actionName: "view"
       }
     });
+  }
+
+  @wire(getObjectInfo, { objectApiName: "$valueTypedToSearch" })
+  handleResult({ error, data }) {
+    if (data) {
+      this.iconURL = data.themeInfo.iconUrl;
+      this.template
+        .querySelector("lightning-card")
+        .style.setProperty("--iconColor", "#" + data.themeInfo.color);
+    }
+    if (error) {
+      // handle error
+    }
   }
 }
