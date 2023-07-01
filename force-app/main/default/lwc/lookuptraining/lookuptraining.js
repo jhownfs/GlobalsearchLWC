@@ -3,6 +3,7 @@ import searchRecords from "@salesforce/apex/LookupTrainingController.searchRecor
 import comboBoxObjects from "@salesforce/apex/LookupTrainingController.listObjectsSalesforce";
 import { NavigationMixin } from "lightning/navigation";
 import { getObjectInfo } from "lightning/uiObjectInfoApi";
+import { ShowToastEvent } from "lightning/platformShowToastEvent";
 
 export default class lookuptraining extends NavigationMixin(LightningElement) {
   searchTerm = null;
@@ -11,6 +12,8 @@ export default class lookuptraining extends NavigationMixin(LightningElement) {
   @track listObjectSalesforce;
   @track valueTypedToSearch;
   @track objectInfo;
+  @track iconURL =
+    "https://coisadavidacast-dev-ed.my.salesforce.com/img/icon/t4v35/standard/address_120.png";
   objectApiName;
 
   connectedCallback() {
@@ -23,7 +26,6 @@ export default class lookuptraining extends NavigationMixin(LightningElement) {
       .then((result) => {
         let objectsArray = [];
 
-        console.log("novo resultado = ", result);
         if (result) {
           result.forEach((obj) => {
             objectsArray.push({
@@ -36,7 +38,7 @@ export default class lookuptraining extends NavigationMixin(LightningElement) {
         this.loaded = false;
       })
       .catch((error) => {
-        console.log("error", error);
+        this.showNotification("Error: loading objects", error, "error");
       });
   }
 
@@ -65,5 +67,26 @@ export default class lookuptraining extends NavigationMixin(LightningElement) {
         actionName: "view"
       }
     });
+  }
+
+  @wire(getObjectInfo, { objectApiName: "$valueTypedToSearch" })
+  handleResult({ error, data }) {
+    if (data) {
+      this.iconURL = data.themeInfo.iconUrl;
+      this.template
+        .querySelector("lightning-card")
+        .style.setProperty("--iconColor", "#" + data.themeInfo.color);
+    } else if (error) {
+      this.showNotification("Error: loading objects icons", error, "error");
+    }
+  }
+
+  showNotification(_title, _message, _error) {
+    const evt = new ShowToastEvent({
+      title: _title,
+      message: _message,
+      variant: _error
+    });
+    this.dispatchEvent(evt);
   }
 }
