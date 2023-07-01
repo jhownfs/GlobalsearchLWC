@@ -1,5 +1,5 @@
 .container {
-  margin: 1px 1px 1px 1px;
+  margin: var(--lwc-borderWidthThin, 1px);
   text-align: -webkit-center;
 }
 
@@ -14,12 +14,11 @@
 
 .container-results {
   font-family: "Courier New", Courier, monospace;
-  border: 1px solid silver;
-  z-index: 100;
-  text-align: left;
+  border: var(--lwc-borderWidthThin, 1px) solid silver;
+  z-index: var(--lwc-zIndexSticky, 100);
   position: absolute;
   width: inherit;
-  background-color: white;
+  background-color: var(--lwc-colorBackgroundAlt, #ffffff);
   height: 100px;
   overflow-y: scroll;
 }

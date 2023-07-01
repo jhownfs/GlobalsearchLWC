@@ -3,6 +3,7 @@ import searchRecords from "@salesforce/apex/LookupTrainingController.searchRecor
 import comboBoxObjects from "@salesforce/apex/LookupTrainingController.listObjectsSalesforce";
 import { NavigationMixin } from "lightning/navigation";
 import { getObjectInfo } from "lightning/uiObjectInfoApi";
+import { ShowToastEvent } from "lightning/platformShowToastEvent";
 
 export default class lookuptraining extends NavigationMixin(LightningElement) {
   searchTerm = null;
@@ -37,7 +38,7 @@ export default class lookuptraining extends NavigationMixin(LightningElement) {
         this.loaded = false;
       })
       .catch((error) => {
-        console.log("error", error);
+        this.showNotification("Error: loading objects", error, "error");
       });
   }
 
@@ -75,9 +76,17 @@ export default class lookuptraining extends NavigationMixin(LightningElement) {
       this.template
         .querySelector("lightning-card")
         .style.setProperty("--iconColor", "#" + data.themeInfo.color);
+    } else if (error) {
+      this.showNotification("Error: loading objects icons", error, "error");
     }
-    if (error) {
-      // handle error
-    }
+  }
+
+  showNotification(_title, _message, _error) {
+    const evt = new ShowToastEvent({
+      title: _title,
+      message: _message,
+      variant: _error
+    });
+    this.dispatchEvent(evt);
   }
 }

@@ -24,7 +24,7 @@
           onchange={handleontype}
         ></lightning-input>
         <template if:true={listRecordsFound.data}>
-          <div class="container-results">
+          <div class="slds-text-align_left container-results">
             <template for:each={listRecordsFound.data} for:item="record">
               <div class="each-records" key={record.Id}>
                 <img src={iconURL} alt={valueTypedToSearch} class="img-icon" />
