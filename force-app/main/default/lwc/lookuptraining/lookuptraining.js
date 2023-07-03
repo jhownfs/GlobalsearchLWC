@@ -14,7 +14,8 @@ export default class lookuptraining extends NavigationMixin(LightningElement) {
   @track objectInfo;
   @track iconURL =
     "https://coisadavidacast-dev-ed.my.salesforce.com/img/icon/t4v35/standard/address_120.png";
-  objectApiName;
+  @track objectApiName;
+  @track showResults = false;
 
   connectedCallback() {
     this.loaded = true;
@@ -88,5 +89,16 @@ export default class lookuptraining extends NavigationMixin(LightningElement) {
       variant: _error
     });
     this.dispatchEvent(evt);
+  }
+
+  showelement() {
+    this.showResults = true;
+  }
+
+  hidelement() {
+    // eslint-disable-next-line @lwc/lwc/no-async-operation
+    setTimeout(() => {
+      this.showResults = false;
+    }, 1000);
   }
 }
