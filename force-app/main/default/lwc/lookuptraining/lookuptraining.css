@@ -15,7 +15,7 @@
 .container-results {
   font-family: "Courier New", Courier, monospace;
   border: var(--lwc-borderWidthThin, 1px) solid silver;
-  z-index: var(--lwc-zIndexSticky, 100);
+  z-index: 100;
   position: absolute;
   width: inherit;
   background-color: var(--lwc-colorBackgroundAlt, #ffffff);

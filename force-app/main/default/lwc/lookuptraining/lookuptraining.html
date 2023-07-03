@@ -22,12 +22,25 @@
           type="search"
           label="Type text to search"
           onchange={handleontype}
+          class="search-records-input"
+          onfocus={showelement}
+          onkeyup={showelement}
+          onblur={hidelement}
         ></lightning-input>
         <template if:true={listRecordsFound.data}>
-          <div class="slds-text-align_left container-results">
+          <div
+            class="slds-text-align_left container-results"
+            if:true={showResults}
+          >
             <template for:each={listRecordsFound.data} for:item="record">
               <div class="each-records" key={record.Id}>
-                <img src={iconURL} alt={valueTypedToSearch} class="img-icon" />
+                <img
+                  src={iconURL}
+                  alt={valueTypedToSearch}
+                  class="img-icon"
+                  onclick={navigatetorecord}
+                  data-id={record.Id}
+                />
                 <!-- change to navigator in a child component -->
                 <lightning-formatted-text
                   value={record.Name}
