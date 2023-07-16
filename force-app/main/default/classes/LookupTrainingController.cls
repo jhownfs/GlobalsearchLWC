@@ -1,19 +1,25 @@
 public with sharing class LookupTrainingController {
+  public static IRepository repo;
+
   @AuraEnabled(cacheable=true)
   public static list<SObject> searchRecords(
     String keyTerm,
     String objectSearch
   ) {
     list<SObject> listSearchResultRecords = new List<SObject>();
-
-    String searchKey = '%' + String.escapeSingleQuotes(keyTerm) + '%';
-
+    SObjectType sObjType = ((SObject) Type.forName(objectSearch).newInstance())
+      .getSObjectType();
+    //repo = new Repository(sObjType, new list<String>{ 'id', 'name' } );
+    LookupTrainingSpec spec = new LookupTrainingSpec(keyTerm);
+    IRepository queryBuild = new Repository.QueryBuilder(
+      new List<String>{ 'id', 'name' }
+    );
     String dynamicQuery = 'SELECT Id, Name';
     dynamicQuery += ' FROM ' + objectSearch;
     dynamicQuery += ' WHERE Name LIKE: searchKey';
 
     try {
-      listSearchResultRecords = database.query(dynamicQuery);
+      //listSearchResultRecords = database.query(dynamicQuery);
     } catch (Exception e) {
       throw new AuraHandledException(e.getMessage());
     }

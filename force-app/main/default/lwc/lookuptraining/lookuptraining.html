@@ -53,7 +53,15 @@
         </template>
         <template if:true={listRecordsFound.error}>
           <div class="result-error">
-            <!-- put break image with refresh tips, also add msg alert -->
+            <div>{labels.findRecordsError}</div>
+            <div>
+              <lightning-icon
+                icon-name="utility:error"
+                alternative-text="Error"
+                title="Error"
+                variant="error"
+              ></lightning-icon>
+            </div>
           </div>
         </template>
       </div>

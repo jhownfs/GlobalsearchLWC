@@ -4,6 +4,7 @@ import comboBoxObjects from "@salesforce/apex/LookupTrainingController.listObjec
 import { NavigationMixin } from "lightning/navigation";
 import { getObjectInfo } from "lightning/uiObjectInfoApi";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
+import findRecordsError from "@salesforce/label/c.Error_message_find_records";
 
 export default class lookuptraining extends NavigationMixin(LightningElement) {
   searchTerm = null;
@@ -16,6 +17,10 @@ export default class lookuptraining extends NavigationMixin(LightningElement) {
     "https://coisadavidacast-dev-ed.my.salesforce.com/img/icon/t4v35/standard/address_120.png";
   @track objectApiName;
   @track showResults = false;
+
+  labels = {
+    findRecordsError
+  };
 
   connectedCallback() {
     this.loaded = true;
