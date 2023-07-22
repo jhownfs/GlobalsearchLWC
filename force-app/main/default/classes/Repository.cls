@@ -126,6 +126,7 @@ global virtual with sharing class Repository implements IRepository {
 
     //PermissionHelper.checkPermission(queryBuilder.projection,PermissionHelper.ACCESS, objectType);
     String parsedSOQL = queryBuilder.build();
+    system.debug('parsedSOQL = ' + parsedSOQL);
     List<SObject> result = Database.query(parsedSOQL);
     return result;
   }
