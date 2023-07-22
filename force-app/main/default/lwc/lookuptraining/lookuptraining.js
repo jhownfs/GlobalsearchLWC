@@ -4,6 +4,7 @@ import comboBoxObjects from "@salesforce/apex/LookupTrainingController.listObjec
 import { NavigationMixin } from "lightning/navigation";
 import { getObjectInfo } from "lightning/uiObjectInfoApi";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
+import findRecordsError from "@salesforce/label/c.Error_message_find_records";
 
 export default class lookuptraining extends NavigationMixin(LightningElement) {
   searchTerm = null;
@@ -16,6 +17,11 @@ export default class lookuptraining extends NavigationMixin(LightningElement) {
     "https://coisadavidacast-dev-ed.my.salesforce.com/img/icon/t4v35/standard/address_120.png";
   @track objectApiName;
   @track showResults = false;
+  @track listRecordsFound = [];
+
+  labels = {
+    findRecordsError
+  };
 
   connectedCallback() {
     this.loaded = true;
@@ -39,24 +45,28 @@ export default class lookuptraining extends NavigationMixin(LightningElement) {
         this.loaded = false;
       })
       .catch((error) => {
-        this.showNotification("Error: loading objects", error, "error");
+        this.showNotification("Error: loading records", error, "error");
       });
   }
 
   changeobject(event) {
     this.valueTypedToSearch = event.detail.value;
-    this.listRecordsFound = [];
     this.objectApiName = event.detail.value;
   }
 
-  @wire(searchRecords, {
-    keyTerm: "$searchTerm",
-    objectSearch: "$valueTypedToSearch"
-  })
-  listRecordsFound;
-
   handleontype(event) {
-    this.searchTerm = event.target.value;
+    searchRecords({
+      keyTerm: event.target.value,
+      objectSearch: this.valueTypedToSearch
+    })
+      .then((result) => {
+        this.listRecordsFound.concat(result);
+        console.log("result ", result);
+        console.log("this.listRecordsFound ", this.listRecordsFound);
+      })
+      .catch((error) => {
+        this.showNotification("Error: loading objects", error, "error");
+      });
   }
 
   navigatetorecord(event) {
@@ -95,10 +105,10 @@ export default class lookuptraining extends NavigationMixin(LightningElement) {
     this.showResults = true;
   }
 
-  hidelement() {
+  /* hidelement() {
     // eslint-disable-next-line @lwc/lwc/no-async-operation
     setTimeout(() => {
       this.showResults = false;
     }, 1000);
-  }
+  }*/
 }

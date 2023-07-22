@@ -1,4 +1,6 @@
 public with sharing class LookupTrainingController {
+  public static IRepositoryFactory repositoryFactory;
+
   @AuraEnabled(cacheable=true)
   public static list<SObject> searchRecords(
     String keyTerm,
@@ -6,14 +8,20 @@ public with sharing class LookupTrainingController {
   ) {
     list<SObject> listSearchResultRecords = new List<SObject>();
 
-    String searchKey = '%' + String.escapeSingleQuotes(keyTerm) + '%';
-
-    String dynamicQuery = 'SELECT Id, Name';
-    dynamicQuery += ' FROM ' + objectSearch;
-    dynamicQuery += ' WHERE Name LIKE: searchKey';
+    system.debug('objectSearch = ' + objectSearch);
+    system.debug('keyTerm = ' + keyTerm);
+    SObjectType sObjType = ((SObject) Type.forName(objectSearch).newInstance())
+      .getSObjectType();
+    repositoryFactory = new RepositoryFactory();
+    IRepository repository = repositoryFactory.create(sObjType);
+    Specification spec = new LookupTrainingSpec(keyTerm);
+    system.debug('spec = ' + spec);
+    Repository.QueryBuilder queryBuilder = new Repository.QueryBuilder()
+      .selectFields(new List<String>{ 'Id', 'Name' })
+      .whereSpecification(spec);
 
     try {
-      listSearchResultRecords = database.query(dynamicQuery);
+      listSearchResultRecords = repository.queryObjects(queryBuilder);
     } catch (Exception e) {
       throw new AuraHandledException(e.getMessage());
     }
@@ -33,7 +41,8 @@ public with sharing class LookupTrainingController {
 
         if (
           Schema.describeSObjects(arrayObjects)[0].isSearchable() &&
-          Schema.describeSObjects(arrayObjects)[0].isQueryable()
+          Schema.describeSObjects(arrayObjects)[0].isQueryable() &&
+          obj.getDescribe().getName() != 'Address'
         ) {
           lstObjects.add(obj.getDescribe().getName());
         }

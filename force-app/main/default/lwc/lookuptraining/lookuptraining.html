@@ -25,7 +25,6 @@
           class="search-records-input"
           onfocus={showelement}
           onkeyup={showelement}
-          onblur={hidelement}
         ></lightning-input>
         <template if:true={listRecordsFound.data}>
           <div
@@ -53,7 +52,15 @@
         </template>
         <template if:true={listRecordsFound.error}>
           <div class="result-error">
-            <!-- put break image with refresh tips, also add msg alert -->
+            <div>{labels.findRecordsError}</div>
+            <div>
+              <lightning-icon
+                icon-name="utility:error"
+                alternative-text="Error"
+                title="Error"
+                variant="error"
+              ></lightning-icon>
+            </div>
           </div>
         </template>
       </div>
