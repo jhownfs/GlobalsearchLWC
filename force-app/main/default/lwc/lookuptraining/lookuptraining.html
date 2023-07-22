@@ -25,13 +25,14 @@
           class="search-records-input"
           onfocus={showelement}
           onkeyup={showelement}
+          onblur={hidelement}
         ></lightning-input>
-        <template if:true={listRecordsFound.data}>
+        <template if:true={listRecordsFound}>
           <div
             class="slds-text-align_left container-results"
             if:true={showResults}
           >
-            <template for:each={listRecordsFound.data} for:item="record">
+            <template for:each={listRecordsFound} for:item="record">
               <div class="each-records" key={record.Id}>
                 <img
                   src={iconURL}
