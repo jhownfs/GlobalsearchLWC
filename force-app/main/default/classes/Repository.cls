@@ -50,7 +50,6 @@ global virtual with sharing class Repository implements IRepository {
   }
 
   global virtual void saveObject(List<SObject> entities, List<String> fields) {
-    //PermissionHelper.checkPermission(fields,PermissionHelper.CREATEE, entities.getsObjectType());
     upsert entities;
   }
 
@@ -124,9 +123,7 @@ global virtual with sharing class Repository implements IRepository {
       queryBuilder.selectFields(defaultFields);
     }
 
-    //PermissionHelper.checkPermission(queryBuilder.projection,PermissionHelper.ACCESS, objectType);
     String parsedSOQL = queryBuilder.build();
-    system.debug('parsedSOQL = ' + parsedSOQL);
     List<SObject> result = Database.query(parsedSOQL);
     return result;
   }
@@ -136,7 +133,6 @@ global virtual with sharing class Repository implements IRepository {
     if (queryBuilder.projection == null || queryBuilder.projection.isEmpty()) {
       queryBuilder.selectFields(defaultFields);
     }
-    //PermissionHelper.checkPermission(queryBuilder.projection,PermissionHelper.ACCESS, objectType);
     String parsedSOQL = queryBuilder.build();
     Integer result = Database.countQuery(parsedSOQL);
 

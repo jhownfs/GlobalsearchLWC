@@ -7,7 +7,6 @@ import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import findRecordsError from "@salesforce/label/c.Error_message_find_records";
 
 export default class lookuptraining extends NavigationMixin(LightningElement) {
-  searchTerm = null;
   object = null;
   @track loaded = false;
   @track listObjectSalesforce;
@@ -52,6 +51,7 @@ export default class lookuptraining extends NavigationMixin(LightningElement) {
   changeobject(event) {
     this.valueTypedToSearch = event.detail.value;
     this.objectApiName = event.detail.value;
+    this.listRecordsFound = [];
   }
 
   handleontype(event) {
@@ -60,8 +60,17 @@ export default class lookuptraining extends NavigationMixin(LightningElement) {
       objectSearch: this.valueTypedToSearch
     })
       .then((result) => {
-        this.listRecordsFound.concat(result);
-        console.log("result ", result);
+        let objectsArray = [];
+
+        result.forEach((obj) => {
+          objectsArray.push({
+            Id: obj.Id,
+            Name: obj.Name
+          });
+        });
+
+        this.listRecordsFound = objectsArray;
+        console.log("objectsArray ", objectsArray);
         console.log("this.listRecordsFound ", this.listRecordsFound);
       })
       .catch((error) => {
@@ -105,10 +114,10 @@ export default class lookuptraining extends NavigationMixin(LightningElement) {
     this.showResults = true;
   }
 
-  /* hidelement() {
+  hidelement() {
     // eslint-disable-next-line @lwc/lwc/no-async-operation
     setTimeout(() => {
       this.showResults = false;
     }, 1000);
-  }*/
+  }
 }
