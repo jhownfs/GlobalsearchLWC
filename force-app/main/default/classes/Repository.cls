@@ -201,11 +201,15 @@ global virtual with sharing class Repository implements IRepository {
     }
 
     protected String build() {
-      /*if(objectType == null || projection == null || projection.isEmpty()){
-                	throw new QueryBuilderException('Select Fields and SObjectType are mandatory to build a query '+ 
-                                                '[Select Fields: {0} ] [SObjectType: '+ objectType +' ]', 
-                                                 projection );
-        	}*/
+      if (objectType == null || projection == null || projection.isEmpty()) {
+        throw new QueryBuilderException(
+          'Select Fields and SObjectType are mandatory to build a query ' +
+            '[Select Fields: {0} ] [SObjectType: ' +
+            objectType +
+            ' ]',
+          projection
+        );
+      }
 
       String soql = 'SELECT {0}' + '  FROM {1}';
 
